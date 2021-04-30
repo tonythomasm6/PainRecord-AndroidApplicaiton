@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp">
+
+    <TextView
+        android:id="@+id/seekText"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pain Intensity Level: "
+        />
+
+    <TextView
+        android:id="@+id/painIntenseVal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:layout_toRightOf="@+id/seekText"
+        android:layout_marginTop="20dp"/>
+
+    <SeekBar
+        android:id="@+id/seekBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:max="10"
+        android:min="1"
+        android:progress="5"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/seekText"/>
+
+    <TextView
+        android:id="@+id/seekBarMinValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:layout_marginLeft="12dp"
+        android:layout_below="@+id/seekBar"
+        />
+
+    <TextView
+        android:id="@+id/seekBarMaxValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/seekBar"
+        android:text="10"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="12dp"
+        />
+
+    <TextView
+        android:id="@+id/locationText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/seekBarMinValue"
+        android:text="Pain Location"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
+        />
+
+    <Spinner
+        android:id="@+id/location"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_below="@+id/locationText"
+        android:layout_marginTop="10dp" />
+
+    <TextView
+        android:id="@+id/moodLevelTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/location"
+        android:text="Mood Level"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
+        />
+
+
+
+    <RadioGroup
+        android:id="@+id/locRadio"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@+id/moodLevelTextView">
+
+
+        <RadioButton
+            android:id="@+id/veryLow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Very Low" />
+        <RadioButton android:id="@+id/low"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/veryLow"
+            android:text="Low"
+           />
+        <RadioButton android:id="@+id/average"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/low"
+            android:text="Average"
+            />
+        <RadioButton android:id="@+id/good"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/average"
+            android:text="Good"
+            />
+        <RadioButton
+            android:id="@+id/veryGood"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/good"
+            android:text="Very Good" />
+
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/stepsTakenView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/locRadio"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="15dp"
+        android:text="Steps Taken" />
+
+    <EditText
+        android:id="@+id/stepsTakenText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/stepsTakenView"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="10dp"
+        android:text="10000" />
+
+    <Button
+        android:id="@+id/saveButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/stepsTakenText"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="20dp"
+        android:text="Save" />
+
+    <Button
+        android:id="@+id/editButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/stepsTakenText"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="81dp"
+        android:text="Edit" />
+
+
+
+
+</RelativeLayout>

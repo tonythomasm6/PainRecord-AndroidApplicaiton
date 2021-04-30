@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    tools:context=".SignupActivity">
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pain Diary"
+        tools:layout_editor_absoluteX="168dp"
+        tools:layout_editor_absoluteY="109dp"
+        android:textSize="50dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="70dp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif-black"/>
+
+    <EditText
+        android:id="@+id/email"
+        android:layout_width="393dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="51dp"
+        android:layout_marginRight="17dp"
+        android:hint="Email" />
+
+    <EditText
+        android:id="@+id/pass"
+        android:layout_width="378dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/email"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="17dp"
+        android:layout_marginRight="17dp"
+        android:hint="Password" />
+
+    <EditText
+        android:id="@+id/repass"
+        android:layout_width="378dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/pass"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="24dp"
+        android:layout_marginRight="17dp"
+        android:hint="Re-enter password" />
+
+    <Button
+        android:id="@+id/register"
+        android:layout_width="190dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/repass"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="91dp"
+        android:layout_marginRight="108dp"
+        android:text="Register" />
+</RelativeLayout>
