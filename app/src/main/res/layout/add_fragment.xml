@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -162,7 +166,15 @@
         android:layout_marginRight="81dp"
         android:text="Edit" />
 
-
+    <TextView
+        android:id="@+id/viewResult"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editButton"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="15dp"
+        android:hint="Result after save"/>
 
 
 </RelativeLayout>
+</ScrollView>
