@@ -7,17 +7,33 @@ import android.widget.ArrayAdapter;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.SeekBar;
+import android.widget.Toast;
+
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.paindiary.R;
 import com.example.paindiary.databinding.AddFragmentBinding;
+import com.example.paindiary.db.entity.PainRecord;
+import com.example.paindiary.db.viewModel.PainViewModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 public class AddFragment extends Fragment {
 
     private AddFragmentBinding addBinding;
     private FirebaseUser firebaseUser;
+    private PainViewModel painViewModel;
+    private String userEmail;
+    private PainRecord todayRecord = null;
     public AddFragment() {
     }
 
@@ -26,32 +42,42 @@ public class AddFragment extends Fragment {
                              Bundle savedInstanceState) {
         addBinding = AddFragmentBinding.inflate(inflater, container, false);
         View view = addBinding.getRoot();
+
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        //Method to populate pain locations
+        userEmail = firebaseUser.getEmail(); // Getting logged in user Email
+
+        painViewModel = new ViewModelProvider(this).get(PainViewModel.class);
+
+        //Method to populate pain locations in spinner
         populateSpinnerLocations();
 
+        loadDataOfToday(); // Fetching any data if record present already for today
         //For updating progress in seek bar
         int progress = addBinding.seekBar.getProgress();
         addBinding.painIntenseVal.setText(""+progress);
 
         addBinding.seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener(){
-
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 addBinding.painIntenseVal.setText(""+progress);
             }
-
             @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
+            public void onStartTrackingTouch(SeekBar seekBar) { }
+             @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {}
 
         });
+
+
+        //Delete all button
+        addBinding.deleteButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                painViewModel.deleteALl();
+                Toast.makeText(getActivity(), "All records deleted !!", Toast.LENGTH_LONG).show();
+            }
+        });
+
 
         //Save button click
         addBinding.saveButton.setOnClickListener(new View.OnClickListener(){
@@ -59,33 +85,142 @@ public class AddFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                //Fetching radio button value for mood.
-                RadioGroup radioGroup = addBinding.locRadio;
-                int radioId = radioGroup.getCheckedRadioButtonId();
-                RadioButton radioButton =getActivity().findViewById(radioId);
-                String moodData = radioButton.getText().toString();
-
-                int painIntensity = addBinding.seekBar.getProgress();
-
-                String painLoc = addBinding.location.getSelectedItem().toString();
-
-                String stepsTaken = addBinding.stepsTakenText.getText().toString();
-
-                addBinding.viewResult.setText("Intensity :"+painIntensity +"\n location :"+painLoc+"\nmood :"+moodData+"\n stepsTaken :"+stepsTaken);
-
-
+                PainRecord painRecord = fetchFormData(); // Method to fetch entered form data
+                if(painRecord !=null) {
+                    painViewModel.insert(painRecord);  //Inserting into database
+                   // addBinding.viewResult.setText(painRecord.toString()); // For debug purpose
+                    Toast toast = Toast.makeText(getActivity(), "Record saved successfully", Toast.LENGTH_LONG);
+                    toast.show();
+                    addBinding.saveButton.setEnabled(false);
+                    addBinding.editButton.setEnabled(true);
+                }else{
+                    Toast toast = Toast.makeText(getActivity(), "Saving failed !!!", Toast.LENGTH_LONG);
+                    toast.show();
+                    return;
+                }
             }
         });
 
 
+        //Edit button functionality
+        addBinding.editButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                editData();
+            }
+        });
         return view;
 
     }
 
+    //Method to populate the spinner with pain locations.
     public void  populateSpinnerLocations(){
-        //Populate pain locations
-        String[] locs ={"Back","Neck","Head","Knees","Hips","Abdomen","Elbows","Shoulder","Shins","Jaw","Facial"};
-        final ArrayAdapter<String> locsAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item,locs);
+        String[] locs ={"Back","Neck","Head","Knees","Hips","Abdomen","Elbows",
+                "Shoulder","Shins","Jaw","Facial"};
+        final ArrayAdapter<String> locsAdapter = new ArrayAdapter<String>(getContext(),
+                android.R.layout.simple_spinner_item,locs);
         addBinding.location.setAdapter(locsAdapter);
     }
+
+
+    //Method to fetch the entered form data and also validations
+    public PainRecord fetchFormData() {
+        //Fetching radio button value for mood.
+        PainRecord painRecord = null;
+        try {
+            RadioGroup radioGroup = addBinding.locRadio;
+            int radioId = radioGroup.getCheckedRadioButtonId();
+            RadioButton radioButton = getActivity().findViewById(radioId);
+            String moodData = radioButton.getText().toString();
+
+            int painIntensity = addBinding.seekBar.getProgress();
+            String painLoc = addBinding.location.getSelectedItem().toString();
+            String stepsTaken = addBinding.stepsTakenText.getText().toString();
+
+            if(stepsTaken.isEmpty()){ // Validation for if steps taken is empty
+                addBinding.stepsTakenText.setError("Please enter a valid value");
+            }
+            else{
+                Date date = getFormattedCurrentDate();
+                //Getting formatted current date and adding it to the Entity.
+                painRecord = new PainRecord(painIntensity, painLoc, moodData, stepsTaken, userEmail,date);
+            }
+        } catch (Exception e) {
+            Toast.makeText(getActivity(), "Exception : Saving failed !!!", Toast.LENGTH_LONG).show();
+        }
+        return painRecord;
+    }
+
+    //To get the today's date without time in Date format
+    public Date getFormattedCurrentDate(){
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        String dateStr = formatter.format(new Date());
+        Date date = new Date();
+       try {
+           date = formatter.parse(dateStr);
+       }catch(Exception e){
+
+       }
+        return date;
+    }
+
+
+    //Loading record if entered for the day
+    public void loadDataOfToday(){
+        try {
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+                CompletableFuture<List<PainRecord>> painRecordCompletableFuture = painViewModel.findTodayRecord(userEmail,getFormattedCurrentDate());
+                painRecordCompletableFuture.thenApply(painRecords -> {
+                    if(painRecords!=null){
+                        if(painRecords.size()>0){
+                            todayRecord = painRecords.get(0);
+                            addBinding.saveButton.setEnabled(false);
+                            addBinding.editButton.setEnabled(true);
+                        }else{
+                            addBinding.saveButton.setEnabled(true);
+                            addBinding.editButton.setEnabled(false);
+                        }
+
+                    }else{
+                        addBinding.viewResult.setText("No record found for today");
+                        addBinding.saveButton.setEnabled(true);
+                        addBinding.editButton.setEnabled(false);
+                    }return painRecords;
+                });
+            }
+        }catch(Exception e){
+            String ex = e.toString();
+            addBinding.viewResult.setText("System error");
+        }
+    }
+
+    //Method called on Edit button: To edit today's data
+    public void editData(){
+        PainRecord painRecordForm = fetchFormData(); // Getting details entered for today
+
+        painRecordForm.setId(todayRecord.getId());   // Updating the record with the id of current data
+        painViewModel.update(painRecordForm);
+        Toast toast = Toast.makeText(getActivity(), "Record updated ", Toast.LENGTH_LONG);
+        toast.show();
+    }
+
+
+
+    /**Data for testing purpose**/
+   /* public void enterSampleTestData(){
+
+        String[] moods = {"Very Low","Good", "Very Good", "Low", "Very Low", "Good","Average","Average","Very Good","Low" };
+        int[] painIntensities = {1,4,3,2,5,8,9,4,5,10};
+        String[] painLocs = {"Back","Knees","Hips","Back","Shoulder","Abdomen","Elbows","Jaw","Shins","Head"};
+        String[] steps = {};
+
+        String moodData = ;
+        int painIntensity = addBinding.seekBar.getProgress();
+        String painLoc = addBinding.location.getSelectedItem().toString();
+        String stepsTaken = addBinding.stepsTakenText.getText().toString();
+        painRecord = new PainRecord(painIntensity, painLoc, moodData, stepsTaken, userEmail,date);
+    }*/
+
+
+
 }

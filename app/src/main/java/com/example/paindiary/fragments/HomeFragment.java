@@ -78,8 +78,9 @@ public class HomeFragment extends Fragment {
             getWeather(lat,lon);
         } catch (IOException e) {
             e.printStackTrace();
-            //Toast
-        }
+            Toast toast = Toast.makeText(getActivity(), "System error in fetching location", Toast.LENGTH_LONG);
+            toast.show();
+        }return;
     }
 
     public void getWeather(double lat, double lon){
