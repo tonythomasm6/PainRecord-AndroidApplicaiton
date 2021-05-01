@@ -43,11 +43,12 @@ public class AddFragment extends Fragment {
         addBinding = AddFragmentBinding.inflate(inflater, container, false);
         View view = addBinding.getRoot();
 
+
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         userEmail = firebaseUser.getEmail(); // Getting logged in user Email
 
         painViewModel = new ViewModelProvider(this).get(PainViewModel.class);
-
+        //enterSampleTestData(); /*Sample data for testing purpose*/
         //Method to populate pain locations in spinner
         populateSpinnerLocations();
 
@@ -141,9 +142,10 @@ public class AddFragment extends Fragment {
                 addBinding.stepsTakenText.setError("Please enter a valid value");
             }
             else{
+                int steps = Integer.parseInt(stepsTaken);
                 Date date = getFormattedCurrentDate();
                 //Getting formatted current date and adding it to the Entity.
-                painRecord = new PainRecord(painIntensity, painLoc, moodData, stepsTaken, userEmail,date);
+                painRecord = new PainRecord(painIntensity, painLoc, moodData, steps, userEmail,date);
             }
         } catch (Exception e) {
             Toast.makeText(getActivity(), "Exception : Saving failed !!!", Toast.LENGTH_LONG).show();
@@ -207,19 +209,24 @@ public class AddFragment extends Fragment {
 
 
     /**Data for testing purpose**/
-   /* public void enterSampleTestData(){
+   public void enterSampleTestData(){
+
+       SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 
         String[] moods = {"Very Low","Good", "Very Good", "Low", "Very Low", "Good","Average","Average","Very Good","Low" };
         int[] painIntensities = {1,4,3,2,5,8,9,4,5,10};
         String[] painLocs = {"Back","Knees","Hips","Back","Shoulder","Abdomen","Elbows","Jaw","Shins","Head"};
-        String[] steps = {};
+        int[] steps = {500,10000,8000,56666,10000,50000,8000,4000,8000,1000};
+        String[] dates = {"20/1/2021","10/2/2021","12/3/2021","28/3/2021","5/2/2021","20/1/2021","8/3/2021","18/2/2021","22/1/2021","2/1/2021"};
+try{
+        for(int i=0;i<10;i++){
+            painViewModel.insert(new PainRecord(painIntensities[i], painLocs[i], moods[i], steps[i],userEmail,formatter.parse(dates[i])));
+        }
 
-        String moodData = ;
-        int painIntensity = addBinding.seekBar.getProgress();
-        String painLoc = addBinding.location.getSelectedItem().toString();
-        String stepsTaken = addBinding.stepsTakenText.getText().toString();
-        painRecord = new PainRecord(painIntensity, painLoc, moodData, stepsTaken, userEmail,date);
-    }*/
+}catch(Exception e){
+String ex = e.toString();
+}
+    }
 
 
 

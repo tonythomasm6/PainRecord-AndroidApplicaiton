@@ -183,7 +183,7 @@
         android:layout_below="@+id/editButton"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="15dp"
-        android:hint="Result after save"/>
+        android:hint=""/>
 
 
 </RelativeLayout>

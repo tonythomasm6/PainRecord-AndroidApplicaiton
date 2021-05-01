@@ -8,10 +8,14 @@ import android.view.ViewGroup;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.paindiary.databinding.ViewFragmentBinding;
 import com.example.paindiary.db.entity.PainRecord;
 import com.example.paindiary.db.viewModel.PainViewModel;
+import com.example.paindiary.fragments.adapter.RecyclerViewAdapter;
 
 import java.util.List;
 
@@ -20,6 +24,10 @@ public class ViewFragment extends Fragment {
     private ViewFragmentBinding binding;
 
     private PainViewModel painViewModel;
+
+    private RecyclerViewAdapter adapter;
+    private RecyclerView.LayoutManager layoutManager;
+
 
 
     public ViewFragment() {
@@ -35,18 +43,36 @@ public class ViewFragment extends Fragment {
         painViewModel = new ViewModelProvider(this).get(PainViewModel.class);
         //painViewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(getApplication()).create(PainViewModel.class);  // Tony
 
+
         painViewModel.getAllPainRecords().observe(getViewLifecycleOwner(), new Observer<List<PainRecord>>() {
             @Override
             public void onChanged(List<PainRecord> painRecords) {
-                String allPainRecords ="";
-                for(PainRecord p : painRecords){
-                        allPainRecords = allPainRecords + p.toString();
-                }
-                binding.resultText.setText(allPainRecords);
+               viewDataInRecycler(painRecords);
             }
 
         });
+
+
+
+
         return view;
+    }
+
+    //Recycler view method
+    public void viewDataInRecycler(List<PainRecord> painRecords){
+        if(painRecords.size() == 0){
+                binding.noData.setText("No records found !!");
+        }else {
+            adapter = new RecyclerViewAdapter(painRecords);
+            //To add line separating between rows
+            binding.recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
+            binding.recyclerView.setAdapter(adapter);
+
+            layoutManager = new LinearLayoutManager(getActivity());
+            binding.recyclerView.setLayoutManager(layoutManager);
+        }
+
+
     }
 
 }

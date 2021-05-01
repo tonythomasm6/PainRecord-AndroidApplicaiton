@@ -33,7 +33,7 @@ public class PainRecord {
 
     @NonNull
     @ColumnInfo(name="Steps_Taken")
-    public String stepsTaken;
+    public int stepsTaken;
 
     @NonNull
     @ColumnInfo(name="email")
@@ -79,11 +79,11 @@ public class PainRecord {
     }
 
     @NonNull
-    public String getStepsTaken() {
+    public int getStepsTaken() {
         return stepsTaken;
     }
 
-    public void setStepsTaken(@NonNull String stepsTaken) {
+    public void setStepsTaken(@NonNull int stepsTaken) {
         this.stepsTaken = stepsTaken;
     }
 
@@ -105,7 +105,7 @@ public class PainRecord {
         this.date = date;
     }
 
-    public PainRecord(int painIntensity, @NonNull String painLocation, @NonNull String mood, @NonNull String stepsTaken, @NonNull String email, @NonNull Date date) {
+    public PainRecord(int painIntensity, @NonNull String painLocation, @NonNull String mood, @NonNull int stepsTaken, @NonNull String email, @NonNull Date date) {
         this.painIntensity = painIntensity;
         this.painLocation = painLocation;
         this.mood = mood;
