@@ -18,4 +18,8 @@
     <item
         android:id="@+id/nav_maps_fragment"
         android:title="Map" />
+
+    <item
+        android:id="@+id/nav_alarm_fragment"
+        android:title="Alarm" />
 </menu>

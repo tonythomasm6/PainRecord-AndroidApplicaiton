@@ -23,4 +23,8 @@
         android:id="@+id/nav_reports_fragment"
         android:name="com.example.paindiary.fragments.ReportsFragment"
         android:label="Reports" />
+    <fragment
+        android:id="@+id/nav_alarm_fragment"
+        android:name="com.example.paindiary.fragments.AlarmFragment"
+        android:label="AlarmFragment" />
 </navigation>
