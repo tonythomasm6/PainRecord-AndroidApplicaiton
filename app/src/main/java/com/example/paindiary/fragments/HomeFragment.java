@@ -20,6 +20,7 @@ import com.example.paindiary.retrofit.SearchResponse;
 import com.example.paindiary.retrofit.Weather;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Locale;
 
@@ -32,7 +33,13 @@ public class HomeFragment extends Fragment {
     private static final String API_KEY = "a802b6bdfb6965b6f045710d2f52fd02"; // Weather
     private RetrofitInterface retrofitInterface; // Weather
 
-    public HomeFragment(){}
+    //Default location set for map
+    double lat = -37.876823;
+    double lon = 145.045837;
+
+    public HomeFragment() {
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -40,8 +47,10 @@ public class HomeFragment extends Fragment {
         binding = HomeFragmentBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
         retrofitInterface = RetrofitClient.getRetrofitService();//Weather
+        getWeather(lat, lon);
 
-        binding.getWeather.setOnClickListener(new View.OnClickListener(){
+
+        /*binding.getWeather.setOnClickListener(new View.OnClickListener(){
 
             @Override
             public void onClick(View v) {
@@ -54,12 +63,49 @@ public class HomeFragment extends Fragment {
                     getLocation();
                     }
             }
-        });
+        });  */
 
         return view;
     }
 
-    public void getLocation(){
+    public void getWeather(double lat, double lon) {
+        Call<SearchResponse> callAsync =
+                retrofitInterface.customSearch(lat, lon, API_KEY);
+        callAsync.enqueue(new Callback<SearchResponse>() {
+            @Override
+            public void onResponse(Call<SearchResponse> call, Response<SearchResponse> response) {
+                if (response.isSuccessful()) {
+                    Weather list = response.body().weather;
+                    String temp = list.getTemp();
+                    double tempDouble = Double.parseDouble(temp) - 273.15;
+                    DecimalFormat df = new DecimalFormat("###.##");
+                    String tempCelsius = df.format(tempDouble) + "°C";
+                    String hum = list.getHumidity();
+                    String press = list.getPressure();
+                    binding.temperature.setText(tempCelsius);
+                    binding.humidity.setText(list.getHumidity() + " %");
+                    binding.pressure.setText(list.getPressure() + " hPa");
+
+                } else {
+                    Toast toast = Toast.makeText(getActivity(), "System error in " +
+                            "fetching weather", Toast.LENGTH_LONG);
+                    toast.show();
+                }
+                return;
+            }
+
+            @Override
+            public void onFailure(Call<SearchResponse> call, Throwable t) {
+                Toast toast = Toast.makeText(getActivity(), "System error in " +
+                        "fetching weather 2", Toast.LENGTH_LONG);
+                toast.show();
+                return;
+            }
+        });
+        return;
+    }
+
+    /*public void getLocation(){
         Geocoder geocoder = new Geocoder(getActivity(), Locale.getDefault());
         try {
             String add = binding.address.getText().toString();
@@ -81,39 +127,7 @@ public class HomeFragment extends Fragment {
             Toast toast = Toast.makeText(getActivity(), "System error in fetching location", Toast.LENGTH_LONG);
             toast.show();
         }return;
-    }
+    }*/
 
-    public void getWeather(double lat, double lon){
-        Call<SearchResponse> callAsync =
-                retrofitInterface.customSearch(lat, lon, API_KEY);
-        callAsync.enqueue(new Callback<SearchResponse>() {
-            @Override
-            public void onResponse(Call<SearchResponse> call, Response<SearchResponse> response) {
-                if (response.isSuccessful()) {
-                    Weather list = response.body().weather;
-                    String temp= list.getTemp();
-                    String tempCelsius = Double.toString(Double.parseDouble(temp) - 273.5);
-                    String hum = list.getHumidity();
-                    String press = list.getPressure();
-                    binding.temperature.setText(tempCelsius);
-                    binding.humidity.setText(list.getHumidity());
-                    binding.pressure.setText(list.getPressure());
 
-                }
-                else {
-                    Toast toast = Toast.makeText(getActivity(), "System error in fetching weather", Toast.LENGTH_LONG);
-                    toast.show();
-                }
-                return;
-            }
-
-            @Override
-            public void onFailure(Call<SearchResponse> call, Throwable t) {
-                Toast toast = Toast.makeText(getActivity(), "System error in fetching weather 2", Toast.LENGTH_LONG);
-                toast.show();
-                return;
-            }
-        });
-        return;
-    }
 }

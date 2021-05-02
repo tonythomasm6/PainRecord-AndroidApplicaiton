@@ -106,7 +106,8 @@
         android:layout_toRightOf="@id/date"
         android:text="Steps Taken"
         android:textColor="@color/black"
-        android:gravity="center"/>
+        android:gravity="center"
+        android:textStyle="bold"/>
 
     <TextView
         android:id="@+id/stepsVal"

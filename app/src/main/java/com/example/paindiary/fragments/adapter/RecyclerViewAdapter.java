@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.paindiary.databinding.RvLayoutBinding;
 import com.example.paindiary.db.entity.PainRecord;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -15,6 +17,8 @@ import java.util.List;
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>{
 
     private List<PainRecord> painRecords;
+
+    private FirebaseUser firebaseUser;
 
     public RecyclerViewAdapter(List<PainRecord> painRecords){
         this.painRecords = painRecords;
@@ -32,12 +36,15 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     // this method binds the view holder created with data that will be displayed
     @Override
     public void onBindViewHolder(@NonNull RecyclerViewAdapter.ViewHolder viewHolder, int position) {
+            firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
             final PainRecord painRecord = painRecords.get(position);
-            viewHolder.binding.painIntenseVal.setText(Integer.toString(painRecord.getPainIntensity()));
-            viewHolder.binding.painLocationVal.setText(painRecord.getPainLocation());
-            viewHolder.binding.moodVal.setText(painRecord.getMood());
-            viewHolder.binding.dateVal.setText(new SimpleDateFormat("dd/MM/yyyy").format(painRecord.getDate()));
-            viewHolder.binding.stepsVal.setText(Integer.toString(painRecord.getStepsTaken()));
+            if(painRecord.getEmail().equalsIgnoreCase(firebaseUser.getEmail())) {
+                viewHolder.binding.painIntenseVal.setText(Integer.toString(painRecord.getPainIntensity()));
+                viewHolder.binding.painLocationVal.setText(painRecord.getPainLocation());
+                viewHolder.binding.moodVal.setText(painRecord.getMood());
+                viewHolder.binding.dateVal.setText(new SimpleDateFormat("dd/MM/yyyy").format(painRecord.getDate()));
+                viewHolder.binding.stepsVal.setText(Integer.toString(painRecord.getStepsTaken()));
+            }
     }
 
     @Override

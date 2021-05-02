@@ -13,6 +13,7 @@ android {
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -68,5 +69,13 @@ dependencies {
 
     //Recycler view
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
+
+    //Mapbox
+    implementation ('com.mapbox.mapboxsdk:mapbox-android-sdk:9.5.0'){
+        exclude group: 'group_name', module: 'module_name'
+    }
+    implementation 'com.mapbox.mapboxsdk:mapbox-android-plugin-annotation-v9:0.9.0'
+
+
     
 }

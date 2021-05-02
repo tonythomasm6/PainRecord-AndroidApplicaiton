@@ -12,6 +12,17 @@
     android:paddingRight="16dp">
 
     <TextView
+        android:id="@+id/title"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Weather details"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:textSize="22dp"/>
+<!--
+    <TextView
         android:id="@+id/addressMsg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -35,13 +46,12 @@
         android:layout_below="@+id/address"
         android:layout_marginLeft="40dp"
         android:layout_marginTop="11dp"
-        android:text="Get Weather" />
-
+        android:text="Get Weather" /> -->
+<!--
     <TextView
         android:id="@+id/latitudeText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/getWeather"
         android:layout_marginTop="38dp"
         android:fontFamily="sans-serif-black"
         android:text="Latitude :"
@@ -51,7 +61,6 @@
         android:id="@+id/latitude"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/getWeather"
         android:layout_marginLeft="35dp"
         android:layout_marginTop="40dp"
         android:layout_toRightOf="@+id/latitudeText"
@@ -78,13 +87,13 @@
         android:layout_marginTop="37dp"
         android:layout_toRightOf="@+id/longitudeText"
         android:hint="- -" />
-
+-->
     <TextView
         android:id="@+id/temperatureText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/longitude"
-        android:layout_marginTop="30dp"
+        android:layout_below="@+id/title"
+        android:layout_marginTop="40dp"
         android:fontFamily="sans-serif-black"
         android:text="Temperature :"
         android:textColor="@color/black" />
@@ -94,9 +103,9 @@
         android:id="@+id/temperature"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/longitude"
-        android:layout_marginLeft="7dp"
-        android:layout_marginTop="31dp"
+        android:layout_below="@+id/title"
+        android:layout_marginLeft="18dp"
+        android:layout_marginTop="40dp"
         android:layout_toRightOf="@+id/temperatureText"
         android:hint="- -" />
 
@@ -115,7 +124,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/temperature"
-        android:layout_marginLeft="41dp"
+        android:layout_marginLeft="43dp"
         android:layout_marginTop="26dp"
         android:layout_toRightOf="@+id/humidityText"
         android:hint="- -" />
@@ -136,8 +145,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/humidity"
-        android:layout_marginLeft="41dp"
-        android:layout_marginTop="33dp"
+        android:layout_marginLeft="47dp"
+        android:layout_marginTop="35dp"
         android:layout_toRightOf="@+id/pressureText"
         android:hint="- -" />
 

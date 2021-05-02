@@ -46,8 +46,19 @@ public class ViewFragment extends Fragment {
 
         painViewModel.getAllPainRecords().observe(getViewLifecycleOwner(), new Observer<List<PainRecord>>() {
             @Override
-            public void onChanged(List<PainRecord> painRecords) {
-               viewDataInRecycler(painRecords);
+            public void onChanged(List<PainRecord> painRecords)
+            {if(painRecords!=null){
+                if(painRecords.size()>0){
+                    viewDataInRecycler(painRecords);
+                }else{
+                    binding.noData.setText("No records found !!");
+                    binding.noData.setVisibility(View.GONE);
+                }
+            }else{
+                binding.noData.setText("No records found !!");
+                binding.noData.setVisibility(View.GONE);
+            }
+
             }
 
         });
@@ -61,8 +72,9 @@ public class ViewFragment extends Fragment {
     //Recycler view method
     public void viewDataInRecycler(List<PainRecord> painRecords){
         if(painRecords.size() == 0){
-                binding.noData.setText("No records found !!");
+
         }else {
+            binding.noData.setVisibility(View.VISIBLE);
             adapter = new RecyclerViewAdapter(painRecords);
             //To add line separating between rows
             binding.recyclerView.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
