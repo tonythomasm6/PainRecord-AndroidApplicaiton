@@ -7,9 +7,11 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
+import com.anychart.charts.Pie;
 import com.example.paindiary.fragments.AddFragment;
 import com.example.paindiary.fragments.HomeFragment;
 import com.example.paindiary.fragments.MapsFragment;
+import com.example.paindiary.fragments.PiechartFragment;
 import com.example.paindiary.fragments.ReportsFragment;
 
 public class ReportsAdapter extends FragmentPagerAdapter {
@@ -28,8 +30,8 @@ public class ReportsAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                HomeFragment homeFragment = new HomeFragment();
-                return homeFragment;
+                PiechartFragment piechartFragment = new PiechartFragment();
+                return piechartFragment;
             case 1:
                 AddFragment addFragment = new AddFragment();
                 return addFragment;

@@ -25,9 +25,7 @@ allprojects {
             maven { url 'http://repo1.maven.org/maven2' }
             maven { url 'https://jitpack.io' }
             credentials {
-                // Do not change the username below.
                 username = 'mapbox'
-// this password refers to the mapbox token you entered in gradle.properties
                 password = project.properties['MAPBOX_DOWNLOADS_TOKEN'] ?: ""
             }
         }
