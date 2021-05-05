@@ -6,6 +6,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.Toast;
 
@@ -32,6 +33,21 @@ public class MainActivity extends AppCompatActivity {
         setContentView(view);
 
         auth = FirebaseAuth.getInstance();
+
+        binding.passLogin.setTransformationMethod(new PasswordTransformationMethod());
+        binding.checkBox.setChecked(false);
+
+        binding.checkBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!binding.checkBox.isChecked()){
+                    binding.passLogin.setTransformationMethod(new PasswordTransformationMethod());
+                }else{
+                    binding.passLogin.setTransformationMethod(null);
+                }
+            }
+        });
+
 
         //Listener on sign in button
         binding.signin.setOnClickListener(new View.OnClickListener() {
