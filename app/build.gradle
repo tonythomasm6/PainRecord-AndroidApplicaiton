@@ -42,8 +42,9 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment:2.3.4'
     implementation 'androidx.navigation:navigation-ui:2.3.4'
 
-    implementation 'androidx.lifecycle:lifecycle-viewmodel:2.3.0'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel:2.3.1'
     implementation 'androidx.lifecycle:lifecycle-livedata:2.3.0'
+
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
@@ -76,6 +77,17 @@ dependencies {
     }
     implementation 'com.mapbox.mapboxsdk:mapbox-android-plugin-annotation-v9:0.9.0'
 
+    //noinspection GradleCompatible
+    implementation 'com.android.support:design:26.0.+'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'com.google.android.material:material:1.0.0'
+    //implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
+   // implementation 'com.github.AnyChart:AnyChart-Android:0.0.3'
+    //implementation 'com.github.AnyChart:AnyChart-Android:1.1.2'
 
-    
+
+
+
+
+
 }

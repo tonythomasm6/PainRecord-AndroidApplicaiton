@@ -22,6 +22,8 @@ allprojects {
             authentication {
                 basic(BasicAuthentication)
             }
+            maven { url 'http://repo1.maven.org/maven2' }
+            maven { url 'https://jitpack.io' }
             credentials {
                 // Do not change the username below.
                 username = 'mapbox'
