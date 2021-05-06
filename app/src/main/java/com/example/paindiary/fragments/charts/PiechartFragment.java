@@ -1,4 +1,4 @@
-package com.example.paindiary.fragments;
+package com.example.paindiary.fragments.charts;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -15,6 +15,7 @@ import com.anychart.AnyChartView;
 import com.anychart.chart.common.dataentry.DataEntry;
 import com.anychart.chart.common.dataentry.ValueDataEntry;
 import com.anychart.charts.Pie;
+import com.anychart.charts.CircularGauge;
 import com.example.paindiary.databinding.AddFragmentBinding;
 import com.example.paindiary.databinding.PiechartFragmentBinding;
 import com.example.paindiary.db.entity.PainRecord;
@@ -91,24 +92,6 @@ public class PiechartFragment extends Fragment {
 
 
 
-//        Pie pie = AnyChart.pie();
-//
-//        List<DataEntry> data = new ArrayList<>();
-//        data.add(new ValueDataEntry("Back", 10000));
-//        data.add(new ValueDataEntry("Neck", 12000));
-//        data.add(new ValueDataEntry("Head", 18000));
-//        data.add(new ValueDataEntry("Knees", 18000));
-//        data.add(new ValueDataEntry("Hips", 18000));
-//        data.add(new ValueDataEntry("Abdomen", 18000));
-//        data.add(new ValueDataEntry("Elbows", 18000));
-//        data.add(new ValueDataEntry("Shoulder", 18000));
-//        data.add(new ValueDataEntry("Shins", 18000));
-//        data.add(new ValueDataEntry("Jaw", 18000));
-//        data.add(new ValueDataEntry("Facial", 18000));
-//
-//        AnyChartView anyChartView = binding.anyChartView;
-//        pie.data(data);
-//        anyChartView.setChart(pie);
 
 
         return view;
@@ -116,6 +99,9 @@ public class PiechartFragment extends Fragment {
 
     public void drawChart(){
         Pie pie = AnyChart.pie();
+
+
+
         List<DataEntry> data = new ArrayList<>();
         data.add(new ValueDataEntry("Back", backCount));
         data.add(new ValueDataEntry("Neck", neckCount));
@@ -132,5 +118,8 @@ public class PiechartFragment extends Fragment {
         AnyChartView anyChartView = binding.anyChartView;
         pie.data(data);
         anyChartView.setChart(pie);
+
+
+
     }
 }

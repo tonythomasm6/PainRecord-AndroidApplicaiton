@@ -38,9 +38,9 @@ public class ReportsFragment extends Fragment {
         tabLayout = binding.tabLayout;
         viewPager = binding.viewPager;
 
-        tabLayout.addTab(tabLayout.newTab().setText("Home"));
-        tabLayout.addTab(tabLayout.newTab().setText("Sport"));
-        tabLayout.addTab(tabLayout.newTab().setText("Movie"));
+        tabLayout.addTab(tabLayout.newTab().setText("Pie Chart"));
+        tabLayout.addTab(tabLayout.newTab().setText("Steps Chart"));
+        tabLayout.addTab(tabLayout.newTab().setText("Line Chart"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final ReportsAdapter adapter = new ReportsAdapter(this,getFragmentManager(), tabLayout.getTabCount());

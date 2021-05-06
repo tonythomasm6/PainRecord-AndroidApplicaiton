@@ -1,20 +1,18 @@
 package com.example.paindiary.fragments.adapter;
 
-import android.content.Context;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.fragment.app.FragmentStatePagerAdapter;
 
-import com.anychart.charts.Pie;
 import com.example.paindiary.fragments.AddFragment;
-import com.example.paindiary.fragments.HomeFragment;
 import com.example.paindiary.fragments.MapsFragment;
-import com.example.paindiary.fragments.PiechartFragment;
+import com.example.paindiary.fragments.charts.DonutChartFragment;
+import com.example.paindiary.fragments.charts.PiechartFragment;
 import com.example.paindiary.fragments.ReportsFragment;
 
-public class ReportsAdapter extends FragmentPagerAdapter {
+public class ReportsAdapter extends FragmentStatePagerAdapter {
 
     private ReportsFragment myContext;
     int totalTabs;
@@ -33,8 +31,8 @@ public class ReportsAdapter extends FragmentPagerAdapter {
                 PiechartFragment piechartFragment = new PiechartFragment();
                 return piechartFragment;
             case 1:
-                AddFragment addFragment = new AddFragment();
-                return addFragment;
+                DonutChartFragment donutFragment = new DonutChartFragment();
+                return donutFragment;
             case 2:
                MapsFragment mapsFragment = new MapsFragment();
                return mapsFragment;
@@ -46,5 +44,11 @@ public class ReportsAdapter extends FragmentPagerAdapter {
     @Override
     public int getCount() {
         return 3;
+    }
+
+    //Method added to enable refresh page everytime
+    @Override
+    public int getItemPosition(Object object){
+        return POSITION_NONE;
     }
 }

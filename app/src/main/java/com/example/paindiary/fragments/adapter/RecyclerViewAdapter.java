@@ -1,6 +1,8 @@
 package com.example.paindiary.fragments.adapter;
 
+import android.transition.TransitionManager;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -20,6 +22,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     private FirebaseUser firebaseUser;
 
+    private int expandPosition = -1;
+
     public RecyclerViewAdapter(List<PainRecord> painRecords){
         this.painRecords = painRecords;
     }
@@ -38,6 +42,25 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public void onBindViewHolder(@NonNull RecyclerViewAdapter.ViewHolder viewHolder, int position) {
             firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
             final PainRecord painRecord = painRecords.get(position);
+
+            //To expand the recycler view on click
+            final boolean  isExpanded = position==expandPosition; // Default value set to -1
+        //Showing and hiding details based on click
+            viewHolder.binding.weather.setVisibility(isExpanded? View.VISIBLE:View.GONE);
+            viewHolder.binding.upArrow.setVisibility(isExpanded? View.VISIBLE:View.GONE);
+            viewHolder.binding.downArrow.setVisibility(isExpanded? View.GONE:View.VISIBLE);
+            viewHolder.binding.parent.setActivated(isExpanded);
+            //On click listener
+            viewHolder.binding.parent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                expandPosition = isExpanded? -1:position;
+                //TransitionManager.beginDelayedTransition();
+                notifyDataSetChanged();
+            }
+        });
+
+
             if(painRecord.getEmail().equalsIgnoreCase(firebaseUser.getEmail())) {
                 viewHolder.binding.painIntenseVal.setText(Integer.toString(painRecord.getPainIntensity()));
                 viewHolder.binding.painLocationVal.setText(painRecord.getPainLocation());
@@ -57,8 +80,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public int getItemCount() {
         return painRecords.size();
     }
-
-
 
 
 
