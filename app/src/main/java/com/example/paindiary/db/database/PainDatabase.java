@@ -12,7 +12,7 @@ import com.example.paindiary.db.entity.PainRecord;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {PainRecord.class},version = 3,exportSchema = false)
+@Database(entities = {PainRecord.class},version = 4,exportSchema = false)
 public abstract class PainDatabase extends RoomDatabase {
 
     public abstract PainDAO painDao();
@@ -37,3 +37,4 @@ public abstract class PainDatabase extends RoomDatabase {
 
 
 //Version 2 to 3: Steps changed from string to long
+//Version 3 to 4 : temp, pressure, humidity, goal steps added

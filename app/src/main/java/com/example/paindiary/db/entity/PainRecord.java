@@ -36,6 +36,9 @@ public class PainRecord {
     public int stepsTaken;
 
     @NonNull
+    public int goalSteps;
+
+    @NonNull
     @ColumnInfo(name="email")
     public String email;
 
@@ -43,6 +46,16 @@ public class PainRecord {
     @TypeConverters(DateConverter.class)
     @ColumnInfo(name="date")
     public Date date;
+
+    @NonNull
+    public double temp;
+
+    @NonNull
+    public double humidity;
+
+    @NonNull
+    public double pressure;
+
 
     public int getId() {
         return id;
@@ -105,27 +118,72 @@ public class PainRecord {
         this.date = date;
     }
 
-    public PainRecord(int painIntensity, @NonNull String painLocation, @NonNull String mood, @NonNull int stepsTaken, @NonNull String email, @NonNull Date date) {
+    public int getGoalSteps() {
+        return goalSteps;
+    }
+
+    public void setGoalSteps(int goalSteps) {
+        this.goalSteps = goalSteps;
+    }
+
+    public double getTemp() {
+        return temp;
+    }
+
+    public void setTemp(double temp) {
+        this.temp = temp;
+    }
+
+    public double getHumidity() {
+        return humidity;
+    }
+
+    public void setHumidity(double humidity) {
+        this.humidity = humidity;
+    }
+
+    public double getPressure() {
+        return pressure;
+    }
+
+    public void setPressure(double pressure) {
+        this.pressure = pressure;
+    }
+
+
+
+
+    public PainRecord(int painIntensity, @NonNull String painLocation, @NonNull String mood,
+                      @NonNull int stepsTaken, @NonNull int goalSteps, @NonNull String email, @NonNull Date date,
+                      @NonNull double temp, @NonNull double pressure, @NonNull double humidity ) {
         this.painIntensity = painIntensity;
         this.painLocation = painLocation;
         this.mood = mood;
         this.stepsTaken = stepsTaken;
+        this.goalSteps = goalSteps;
         this.email = email;
         //SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         //String date = formatter.format(new Date()); // Converting date to string
         this.date = date; // Converting the formatted string back to date
+        this.temp = temp;
+        this.pressure = pressure;
+        this.humidity = humidity;
     }
 
     @Override
     public String toString() {
         return "PainRecord{" +
-                "id=" + id +
-                ", painIntensity=" + painIntensity +
+                "painIntensity=" + painIntensity +
                 ", painLocation='" + painLocation + '\'' +
                 ", mood='" + mood + '\'' +
-                ", email=" + email +
-                ", date=" + date +
                 ", stepsTaken=" + stepsTaken +
+                ", goalSteps=" + goalSteps +
+                ", email='" + email + '\'' +
+                ", date=" + date +
+                ", temp=" + temp +
+                ", humidity=" + humidity +
+                ", pressure=" + pressure +
                 '}';
     }
+
 }

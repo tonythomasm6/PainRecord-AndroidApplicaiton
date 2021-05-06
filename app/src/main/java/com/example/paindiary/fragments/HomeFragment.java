@@ -1,5 +1,7 @@
 package com.example.paindiary.fragments;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
@@ -10,10 +12,12 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.paindiary.MainActivity;
 import com.example.paindiary.SignupActivity;
 import com.example.paindiary.databinding.HomeFragmentBinding;
+import com.example.paindiary.db.viewModel.WeatherViewModel;
 import com.example.paindiary.retrofit.RetrofitClient;
 import com.example.paindiary.retrofit.RetrofitInterface;
 import com.example.paindiary.retrofit.SearchResponse;
@@ -21,6 +25,7 @@ import com.example.paindiary.retrofit.Weather;
 
 import java.io.IOException;
 import java.text.DecimalFormat;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
@@ -85,6 +90,15 @@ public class HomeFragment extends Fragment {
                     binding.temperature.setText(tempCelsius);
                     binding.humidity.setText(list.getHumidity() + " %");
                     binding.pressure.setText(list.getPressure() + " hPa");
+
+                    //Using weather view model to transfer weather data
+                    WeatherViewModel model = new ViewModelProvider(requireActivity()).get(WeatherViewModel.class);
+                    HashMap<String,Double> weather = new HashMap<>();
+                    weather.put("temp",Double.parseDouble(df.format(tempDouble)));
+                    weather.put("humidity",Double.parseDouble(hum));
+                    weather.put("pressure",Double.parseDouble(press));
+                    model.setWeather(weather);
+
 
                 } else {
                     Toast toast = Toast.makeText(getActivity(), "System error in " +
