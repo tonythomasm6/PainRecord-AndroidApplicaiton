@@ -44,6 +44,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 viewHolder.binding.moodVal.setText(painRecord.getMood());
                 viewHolder.binding.dateVal.setText(new SimpleDateFormat("dd/MM/yyyy").format(painRecord.getDate()));
                 viewHolder.binding.stepsVal.setText(Integer.toString(painRecord.getStepsTaken()));
+                viewHolder.binding.goalStepsValue.setText(Integer.toString(painRecord.getGoalSteps()));
+                //Weather details
+                viewHolder.binding.temperatureVal.setText(Double.toString(painRecord.getTemp()));
+                viewHolder.binding.humidityVal.setText(Double.toString(painRecord.getHumidity()));
+                viewHolder.binding.pressureVal.setText(Double.toString(painRecord.getPressure()));
+
             }
     }
 

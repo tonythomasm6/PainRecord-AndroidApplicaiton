@@ -94,7 +94,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginRight="17dp"
         android:gravity="center"
-        android:hint="100" />
+        android:hint="dd-mm-yyyy" />
 
     <TextView
         android:id="@+id/stepsText"
@@ -120,5 +120,107 @@
         android:layout_marginRight="17dp"
         android:gravity="center"
         android:hint="100" />
+
+    <TextView
+        android:id="@+id/goalStepsText"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="35dp"
+        android:layout_marginTop="25dp"
+        android:layout_below="@id/painLocationVal"
+        android:layout_toRightOf="@id/stepsText"
+        android:text="Goal Steps"
+        android:textColor="@color/black"
+        android:gravity="center"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/goalStepsValue"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/stepsText"
+        android:layout_toRightOf="@id/stepsVal"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="17dp"
+        android:gravity="center"
+        android:hint="100" />
+
+    <RelativeLayout
+        android:id="@+id/weather"
+        android:layout_below="@+id/stepsVal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/temperatureText"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="25dp"
+            android:text="Temperature"
+            android:textColor="@color/black"
+            android:gravity="center"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/temperatureVal"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/temperatureText"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="17dp"
+            android:gravity="center"
+            android:hint="0" />
+
+        <TextView
+            android:id="@+id/humidityText"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="25dp"
+            android:layout_toRightOf="@id/temperatureText"
+            android:text="Humidity"
+            android:textColor="@color/black"
+            android:gravity="center"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/humidityVal"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/humidityText"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="17dp"
+            android:layout_toRightOf="@id/temperatureVal"
+            android:gravity="center"
+            android:hint="100" />
+
+        <TextView
+            android:id="@+id/pressureText"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="25dp"
+            android:layout_toRightOf="@id/humidityText"
+            android:text="Pressure"
+            android:textColor="@color/black"
+            android:gravity="center"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/pressureVal"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/pressureText"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="17dp"
+            android:layout_toRightOf="@id/humidityVal"
+            android:gravity="center"
+            android:hint="100" />
+
+    </RelativeLayout>
 
 </RelativeLayout>

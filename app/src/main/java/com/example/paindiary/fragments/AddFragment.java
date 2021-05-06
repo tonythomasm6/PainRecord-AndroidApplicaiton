@@ -162,6 +162,9 @@ public class AddFragment extends Fragment {
             if(stepsTaken.isEmpty()){ // Validation for if steps taken is empty
                 addBinding.stepsTakenText.setError("Please enter a valid value");
             }
+            if(goalSteps.trim().isEmpty()){
+                addBinding.goalStepsText.setError("Please enter a valid value");
+            }
             else{
                 int steps = Integer.parseInt(stepsTaken);
                 int goal = Integer.parseInt(goalSteps);
@@ -221,11 +224,14 @@ public class AddFragment extends Fragment {
     //Method called on Edit button: To edit today's data
     public void editData(){
         PainRecord painRecordForm = fetchFormData(); // Getting details entered for today
+        if(painRecordForm == null){
 
-        painRecordForm.setId(todayRecord.getId());   // Updating the record with the id of current data
-        painViewModel.update(painRecordForm);
-        Toast toast = Toast.makeText(getActivity(), "Record updated ", Toast.LENGTH_LONG);
-        toast.show();
+        }else {
+            painRecordForm.setId(todayRecord.getId());   // Updating the record with the id of current data
+            painViewModel.update(painRecordForm);
+            Toast toast = Toast.makeText(getActivity(), "Record updated ", Toast.LENGTH_LONG);
+            toast.show();
+        }
     }
 
 
@@ -240,7 +246,7 @@ public class AddFragment extends Fragment {
         String[] painLocs = {"Back","Knees","Hips","Back","Shoulder","Abdomen","Elbows","Jaw","Shins","Head"};
         int[] steps = {500,10000,8000,56666,10000,50000,8000,4000,8000,1000};
         String[] dates = {"20/1/2021","10/2/2021","12/3/2021","28/3/2021","5/2/2021","20/1/2021","8/3/2021","18/2/2021","22/1/2021","2/1/2021"};
-try{
+    try{
         for(int i=0;i<10;i++){
             //painViewModel.insert(new PainRecord(painIntensities[i], painLocs[i], moods[i], steps[i],userEmail,formatter.parse(dates[i])));
         }

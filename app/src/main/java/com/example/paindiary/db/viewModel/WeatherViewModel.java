@@ -3,8 +3,6 @@ package com.example.paindiary.db.viewModel;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.paindiary.retrofit.Weather;
-
 import java.util.HashMap;
 
 public class WeatherViewModel extends ViewModel {
