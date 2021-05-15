@@ -14,7 +14,9 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.paindiary.databinding.DonutchartFragmentBinding;
 import com.example.paindiary.db.entity.PainRecord;
 import com.example.paindiary.db.viewModel.PainViewModel;
+import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
@@ -28,7 +30,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
+//Reference : https://learntodroid.com/how-to-create-a-pie-chart-in-an-android-app-with-mpandroidchart/
 public class DonutChartFragment extends Fragment {
 
     private DonutchartFragmentBinding binding;
@@ -76,33 +78,53 @@ public class DonutChartFragment extends Fragment {
 
 
     public void drawChart(){
-        PieChart pie = binding.piechart;
-        ArrayList steps = new ArrayList();
+        PieChart pieChart = binding.piechart;
 
-        steps.add(new PieEntry(stepsTaken, "Steps Taken"));
-        steps.add(new PieEntry(goalSteps-stepsTaken, "Remaining Steps"));
+        //Chart setup
+        pieChart.setDrawHoleEnabled(true);
+        pieChart.setUsePercentValues(false);
+        pieChart.setEntryLabelTextSize(12);
+        pieChart.setEntryLabelColor(Color.BLACK);
+        pieChart.setCenterText("Daily Step");
+        pieChart.setCenterTextSize(24);
+        pieChart.getDescription().setEnabled(false);
 
+        //Setting legend for the chart
+        Legend l = pieChart.getLegend();
+        l.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
+        l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
+        l.setOrientation(Legend.LegendOrientation.VERTICAL);
+        l.setDrawInside(false);
+        l.setEnabled(true);
 
         try {
+            ArrayList steps = new ArrayList();
+            steps.add(new PieEntry(stepsTaken, "Steps Taken"));
+            steps.add(new PieEntry(goalSteps-stepsTaken, "Remaining Steps"));
+
+            ArrayList<Integer> colors = new ArrayList<>();
+            for (int color: ColorTemplate.COLORFUL_COLORS) {
+                colors.add(color);
+            }
+            for (int color: ColorTemplate.COLORFUL_COLORS) {
+                colors.add(color);
+            }
 
             PieDataSet dataSet = new PieDataSet(steps, "");
-
+            dataSet.setColors(colors);
             PieData data = new PieData(dataSet);
+            data.setDrawValues(true);
+
+
             data.setValueTextSize(12f);
             data.setValueTextColor(Color.BLACK);
 
-            pie.getLegend().setEnabled(false);
-            pie.setData(data);
-
-            //dataSet.setDrawValues(true);
-            //data.setValueFormatter(new PercentFormatter(pie));
-
-            dataSet.setColors(ColorTemplate.COLORFUL_COLORS);
-            pie.animateXY(5000, 5000);
+            pieChart.setData(data);
+            //dataSet.setColors(ColorTemplate.COLORFUL_COLORS);
+            pieChart.animateXY(5000, 5000);
         }
         catch(Exception e){
-            String e1 = e.toString();
-            String e2 = e1;
+
         }
     }
 

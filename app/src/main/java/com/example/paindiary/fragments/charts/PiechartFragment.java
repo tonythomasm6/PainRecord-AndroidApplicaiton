@@ -89,18 +89,11 @@ public class PiechartFragment extends Fragment {
                         }
                     }
                 });
-
-
-
-
-
         return view;
     }
 
     public void drawChart(){
         Pie pie = AnyChart.pie();
-
-
 
         List<DataEntry> data = new ArrayList<>();
         data.add(new ValueDataEntry("Back", backCount));

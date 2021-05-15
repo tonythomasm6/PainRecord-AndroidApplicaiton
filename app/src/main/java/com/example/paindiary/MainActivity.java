@@ -1,5 +1,12 @@
 package com.example.paindiary;
 
+/**
+ * Author: Tony Thomas
+ * StudentID: 31296149
+ * Last update: 15-May-2021
+ * **/
+
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -90,11 +97,20 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        binding.singup.setOnClickListener(new View.OnClickListener(){
+        binding.signup.setOnClickListener(new View.OnClickListener(){
 
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, SignupActivity.class));
+            }
+        });
+
+
+        binding.forgotPass.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, ForgotActivity.class));
             }
         });
 

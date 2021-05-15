@@ -9,6 +9,7 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 import com.example.paindiary.fragments.AddFragment;
 import com.example.paindiary.fragments.MapsFragment;
 import com.example.paindiary.fragments.charts.DonutChartFragment;
+import com.example.paindiary.fragments.charts.LinechartFragment;
 import com.example.paindiary.fragments.charts.PiechartFragment;
 import com.example.paindiary.fragments.ReportsFragment;
 
@@ -34,8 +35,8 @@ public class ReportsAdapter extends FragmentStatePagerAdapter {
                 DonutChartFragment donutFragment = new DonutChartFragment();
                 return donutFragment;
             case 2:
-               MapsFragment mapsFragment = new MapsFragment();
-               return mapsFragment;
+               LinechartFragment lineFragment = new LinechartFragment();
+               return lineFragment;
             default:
                 return null;
         }

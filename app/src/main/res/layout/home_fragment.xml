@@ -150,6 +150,27 @@
         android:layout_toRightOf="@+id/pressureText"
         android:hint="- -" />
 
+    <TextView
+        android:id="@+id/locationText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/pressureText"
+
+        android:layout_marginTop="35dp"
+        android:fontFamily="sans-serif-black"
+        android:text="Location :"
+        android:textColor="@color/black" />
+
+    <TextView
+        android:id="@+id/location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/pressure"
+        android:layout_marginLeft="47dp"
+        android:layout_marginTop="35dp"
+        android:layout_toRightOf="@+id/locationText"
+        android:text="Melbourne, Victoria" />
+
 
 </RelativeLayout>
 </ScrollView>

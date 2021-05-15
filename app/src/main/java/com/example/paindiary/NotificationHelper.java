@@ -33,8 +33,8 @@ public class NotificationHelper extends ContextWrapper {
     }
     public NotificationCompat.Builder getChannelNotification() {
         return new NotificationCompat.Builder(getApplicationContext(), channelID)
-                .setContentTitle("Alarm!")
-                .setContentText("Time to set the pain record !!!")
+                .setContentTitle("Notification")
+                .setContentText("Please enter your pain details !!")
                 .setSmallIcon(R.drawable.ic_one);  //Tony
     }
 }

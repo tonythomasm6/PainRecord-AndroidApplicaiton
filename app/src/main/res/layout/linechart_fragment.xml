@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/startDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/timePicker"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="20dp"
+        android:text="Start date" />
+
+    <TextView
+        android:id="@+id/startDateText"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="11dp"
+        android:layout_marginTop="20dp"
+        android:layout_toRightOf="@+id/startDate"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:textSize="22dp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/endDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/startDate"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="20dp"
+        android:text="End date" />
+
+    <TextView
+        android:id="@+id/endDateText"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/startDateText"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="50dp"
+        android:layout_toRightOf="@+id/endDate"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:textSize="22dp"
+        android:textStyle="bold" />
+
+
+    <TextView
+        android:id="@+id/weatherVariableText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/endDate"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="23dp"
+        android:gravity="center"
+        android:text="Select weather:"
+        android:textColor="@color/black"
+        android:textSize="22dp" />
+
+    <Spinner
+        android:id="@+id/weatherVariable"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/endDateText"
+        android:layout_marginLeft="23dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginRight="10dp"
+        android:layout_toRightOf="@+id/weatherVariableText" />
+
+    <Button
+        android:id="@+id/generate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/weatherVariableText"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="20dp"
+        android:text="Generate Chart" />
+
+    <com.github.mikephil.charting.charts.LineChart
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:id="@+id/lineChart"
+        android:layout_below="@id/generate"
+        android:visibility="gone"/>
+
+    <Button
+        android:id="@+id/correlation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lineChart"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="20dp"
+        android:text="Generate Chart" />
+
+    <TextView
+        android:id="@+id/correlationText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/correlation"
+        android:layout_below="@+id/lineChart"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="23dp"
+        android:gravity="center"
+        android:text="Select weather:"
+        android:textColor="@color/black"
+        android:textSize="22dp" />
+</RelativeLayout>
+
+</ScrollView>

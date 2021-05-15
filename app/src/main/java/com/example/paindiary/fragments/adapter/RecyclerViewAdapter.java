@@ -20,7 +20,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     private List<PainRecord> painRecords;
 
-    private FirebaseUser firebaseUser;
 
     private int expandPosition = -1;
 
@@ -40,7 +39,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     // this method binds the view holder created with data that will be displayed
     @Override
     public void onBindViewHolder(@NonNull RecyclerViewAdapter.ViewHolder viewHolder, int position) {
-            firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
             final PainRecord painRecord = painRecords.get(position);
 
             //To expand the recycler view on click
@@ -61,7 +59,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         });
 
 
-            if(painRecord.getEmail().equalsIgnoreCase(firebaseUser.getEmail())) {
                 viewHolder.binding.painIntenseVal.setText(Integer.toString(painRecord.getPainIntensity()));
                 viewHolder.binding.painLocationVal.setText(painRecord.getPainLocation());
                 viewHolder.binding.moodVal.setText(painRecord.getMood());
@@ -73,7 +70,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 viewHolder.binding.humidityVal.setText(Double.toString(painRecord.getHumidity()));
                 viewHolder.binding.pressureVal.setText(Double.toString(painRecord.getPressure()));
 
-            }
+
     }
 
     @Override

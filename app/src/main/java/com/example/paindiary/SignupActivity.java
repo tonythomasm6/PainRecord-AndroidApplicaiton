@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Toast;
 
@@ -43,6 +44,11 @@ public class SignupActivity extends AppCompatActivity {
                     binding.email.requestFocus();
                     return;
                 }
+                else if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+                    binding.email.setError("Please enter valid email");
+                    binding.email.requestFocus();
+                    return;
+                }
                 else if(pass.isEmpty()){
                     binding.pass.setError("Password cannot be blank");
                     binding.pass.requestFocus();
@@ -54,10 +60,11 @@ public class SignupActivity extends AppCompatActivity {
                     return;
                 }
                 else if(!pass.equalsIgnoreCase(repass)){
-                    binding.repass.setError("Passwords doesnot match");
+                    binding.repass.setError("Passwords does not match");
                     binding.repass.requestFocus();
                     return;
-                }else{
+                }
+                else{
                     //Registering the user on successful validation
                     auth.createUserWithEmailAndPassword(email,pass).addOnCompleteListener(
                             new OnCompleteListener<AuthResult>() {
