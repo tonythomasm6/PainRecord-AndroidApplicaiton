@@ -21,73 +21,8 @@
         android:textColor="@color/black"
         android:textStyle="bold"
         android:textSize="22dp"/>
-<!--
-    <TextView
-        android:id="@+id/addressMsg"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Enter address to get weather"
-        android:layout_marginTop="20dp"/>
-
-    <EditText
-        android:id="@+id/address"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/addressMsg"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginRight="10dp"
-        android:hint="Enter address" />
-
-    <Button
-        android:id="@+id/getWeather"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/address"
-        android:layout_marginLeft="40dp"
-        android:layout_marginTop="11dp"
-        android:text="Get Weather" /> -->
-<!--
-    <TextView
-        android:id="@+id/latitudeText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="38dp"
-        android:fontFamily="sans-serif-black"
-        android:text="Latitude :"
-        android:textColor="@color/black" />
-
-    <TextView
-        android:id="@+id/latitude"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="35dp"
-        android:layout_marginTop="40dp"
-        android:layout_toRightOf="@+id/latitudeText"
-        android:hint="- -" />
-
-    <TextView
-        android:id="@+id/longitudeText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/latitudeText"
-
-        android:layout_marginTop="38dp"
-        android:fontFamily="sans-serif-black"
-        android:text="Longitude :"
-        android:textColor="@color/black" />
 
 
-    <TextView
-        android:id="@+id/longitude"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/latitude"
-        android:layout_marginLeft="23dp"
-        android:layout_marginTop="37dp"
-        android:layout_toRightOf="@+id/longitudeText"
-        android:hint="- -" />
--->
     <TextView
         android:id="@+id/temperatureText"
         android:layout_width="wrap_content"
@@ -170,6 +105,38 @@
         android:layout_marginTop="35dp"
         android:layout_toRightOf="@+id/locationText"
         android:text="Melbourne, Victoria" />
+
+
+    <ImageView
+        android:id="@+id/sunny"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/location"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="65dp"
+        android:layout_marginRight="50dp"
+        android:src="@drawable/day_clear" />
+
+
+    <ImageView
+        android:id="@+id/cloudy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/location"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="65dp"
+        android:layout_marginRight="50dp"
+        android:src="@drawable/day_partial_cloud" />
+
+    <ImageView
+        android:id="@+id/noncloud"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/location"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="65dp"
+        android:layout_marginRight="50dp"
+        android:src="@drawable/cloudy" />
 
 
 </RelativeLayout>

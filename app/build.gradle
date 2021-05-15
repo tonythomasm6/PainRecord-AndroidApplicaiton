@@ -9,8 +9,8 @@ android {
 
     defaultConfig {
         applicationId "com.example.paindiary"
-        minSdkVersion 19
-        targetSdkVersion 30
+        minSdkVersion 28
+        targetSdkVersion 28
         versionCode 1
         versionName "1.0"
         multiDexEnabled true
@@ -90,6 +90,13 @@ dependencies {
     //    Correlation
     implementation group: "org.apache.commons", name: "commons-math3", version: "3.0"
 
+    //to convert to and from gson object to object for shared preference
+    implementation 'com.google.code.gson:gson:2.8.5'
+
+    //Workmanager
+    implementation 'androidx.work:work-runtime:2.5.0'
+
+    implementation 'com.google.firebase:firebase-database:19.7.0'
 
 
 

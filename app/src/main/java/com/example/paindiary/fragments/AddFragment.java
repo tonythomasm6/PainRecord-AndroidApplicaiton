@@ -1,5 +1,7 @@
 package com.example.paindiary.fragments;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
@@ -27,6 +29,7 @@ import com.example.paindiary.retrofit.SearchResponse;
 import com.example.paindiary.retrofit.Weather;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.gson.Gson;
 
 import java.text.DateFormat;
 import java.text.DecimalFormat;
@@ -121,6 +124,9 @@ public class AddFragment extends Fragment {
                     toast.show();
                     addBinding.saveButton.setEnabled(false);
                     addBinding.editButton.setEnabled(true);
+
+                    //updating shared preference
+                    updateSharedPref(painRecord);
                 } else {
                     Toast toast = Toast.makeText(getActivity(), "Saving failed !!!", Toast.LENGTH_LONG);
                     toast.show();
@@ -237,6 +243,7 @@ public class AddFragment extends Fragment {
             painViewModel.update(painRecordForm);
             Toast toast = Toast.makeText(getActivity(), "Record updated ", Toast.LENGTH_LONG);
             toast.show();
+            updateSharedPref(painRecordForm);
         }
     }
 
@@ -277,5 +284,19 @@ public class AddFragment extends Fragment {
             }
         });
     }
+
+    //Updating shared preference
+    public void updateSharedPref(PainRecord painRecord){
+        SharedPreferences sharedPref= requireActivity().
+                getSharedPreferences("painRecord", Context.MODE_PRIVATE);
+        SharedPreferences.Editor spEditor = sharedPref.edit();
+
+        //Converting object to gson
+        Gson gson = new Gson();
+        String json = gson.toJson(painRecord);
+        spEditor.putString("painRecordStore",json);
+        spEditor.apply();
+    }
+
 
 }

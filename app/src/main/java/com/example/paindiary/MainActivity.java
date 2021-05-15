@@ -10,13 +10,19 @@ package com.example.paindiary;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.ui.AppBarConfiguration;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkManager;
+import androidx.work.WorkRequest;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.paindiary.dailyDataPush.DailyDataPushWorkManager;
 import com.example.paindiary.databinding.ActivityMainBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -24,6 +30,9 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+
+import java.util.Calendar;
+import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -114,7 +123,31 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+//Calling work manager
+        callWorkManager();
 
+    }
 
+    public void callWorkManager(){
+
+        Calendar pushTime = Calendar.getInstance();
+
+        // Data pushed everyday at 10PM
+        pushTime.set(Calendar.HOUR_OF_DAY, 22);
+        pushTime.set(Calendar.MINUTE, 0);
+        pushTime.set(Calendar.SECOND, 0);
+
+        if (pushTime.before(Calendar.getInstance().getTime())) {
+            pushTime.add(Calendar.HOUR_OF_DAY, 24);
+        }
+
+        long timeDiff = pushTime.getTimeInMillis() - Calendar.getInstance().getTimeInMillis();
+
+        WorkRequest insertDataReq = new OneTimeWorkRequest.Builder(DailyDataPushWorkManager.class)
+                .setInitialDelay(timeDiff, TimeUnit.MILLISECONDS).build();
+
+        WorkManager
+                .getInstance(getApplicationContext())
+                .enqueue(insertDataReq);
     }
 }

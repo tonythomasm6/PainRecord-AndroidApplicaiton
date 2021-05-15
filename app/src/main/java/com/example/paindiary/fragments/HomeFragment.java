@@ -54,6 +54,9 @@ public class HomeFragment extends Fragment {
         retrofitInterface = RetrofitClient.getRetrofitService();//Weather
         getWeather(lat, lon);
 
+        binding.sunny.setVisibility(View.GONE);
+        binding.cloudy.setVisibility(View.GONE);
+        binding.noncloud.setVisibility(View.GONE);
 
         /*binding.getWeather.setOnClickListener(new View.OnClickListener(){
 
@@ -90,6 +93,15 @@ public class HomeFragment extends Fragment {
                     binding.temperature.setText(tempCelsius);
                     binding.humidity.setText(list.getHumidity() + " %");
                     binding.pressure.setText(list.getPressure() + " hPa");
+
+                    //
+                    if(tempDouble>20){
+                        binding.sunny.setVisibility(View.VISIBLE);
+                    }else if(tempDouble <21 && tempDouble>10){
+                        binding.cloudy.setVisibility(View.VISIBLE);
+                    }else{
+                        binding.noncloud.setVisibility(View.VISIBLE);
+                    }
 
                     //Using weather view model to transfer weather data
                     WeatherViewModel model = new ViewModelProvider(requireActivity()).get(WeatherViewModel.class);
