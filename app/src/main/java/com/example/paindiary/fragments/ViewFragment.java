@@ -47,8 +47,6 @@ public class ViewFragment extends Fragment {
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
         painViewModel = new ViewModelProvider(this).get(PainViewModel.class);
-        //painViewModel = ViewModelProvider.AndroidViewModelFactory.getInstance(getApplication()).create(PainViewModel.class);  // Tony
-
 
         painViewModel.getAllPainRecords().observe(getViewLifecycleOwner(), new Observer<List<PainRecord>>() {
             @Override
@@ -68,9 +66,6 @@ public class ViewFragment extends Fragment {
             }
 
         });
-
-
-
 
         return view;
     }

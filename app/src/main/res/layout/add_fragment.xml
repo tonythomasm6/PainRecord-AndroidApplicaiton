@@ -100,12 +100,14 @@
             android:id="@+id/veryLow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Very Low" />
+            android:text="Very Low"
+            android:drawableRight="@drawable/verysad"/>
         <RadioButton android:id="@+id/low"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/veryLow"
             android:text="Low"
+            android:drawableRight="@drawable/sad"
            />
         <RadioButton android:id="@+id/average"
             android:layout_width="wrap_content"
@@ -113,19 +115,22 @@
             android:layout_below="@+id/low"
             android:text="Average"
             android:checked="true"
+            android:drawableRight="@drawable/ok"
             />
         <RadioButton android:id="@+id/good"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/average"
             android:text="Good"
+            android:drawableRight="@drawable/happy"
             />
         <RadioButton
             android:id="@+id/veryGood"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/good"
-            android:text="Very Good" />
+            android:text="Very Good"
+            android:drawableRight="@drawable/veryhappy"/>
 
     </RadioGroup>
 

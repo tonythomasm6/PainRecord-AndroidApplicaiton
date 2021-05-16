@@ -173,7 +173,8 @@
         android:id="@+id/weather"
         android:layout_below="@+id/stepsVal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="#CCCCFF">
         <TextView
             android:id="@+id/temperatureText"
             android:layout_width="100dp"

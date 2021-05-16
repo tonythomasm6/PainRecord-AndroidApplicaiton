@@ -58,20 +58,7 @@ public class HomeFragment extends Fragment {
         binding.cloudy.setVisibility(View.GONE);
         binding.noncloud.setVisibility(View.GONE);
 
-        /*binding.getWeather.setOnClickListener(new View.OnClickListener(){
 
-            @Override
-            public void onClick(View v) {
-                //Getting latitude and longitude from address entered
-                if(binding.address.getText().toString().isEmpty()){
-                    binding.address.setError("Address can not be empty");
-                    return;
-                }
-                else{
-                    getLocation();
-                    }
-            }
-        });  */
 
         return view;
     }
@@ -94,7 +81,7 @@ public class HomeFragment extends Fragment {
                     binding.humidity.setText(list.getHumidity() + " %");
                     binding.pressure.setText(list.getPressure() + " hPa");
 
-                    //
+                    //Displaying weather according to temperature
                     if(tempDouble>20){
                         binding.sunny.setVisibility(View.VISIBLE);
                     }else if(tempDouble <21 && tempDouble>10){

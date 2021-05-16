@@ -74,7 +74,7 @@ public class AddFragment extends Fragment {
         userEmail = firebaseUser.getEmail(); // Getting logged in user Email
 
         painViewModel = new ViewModelProvider(this).get(PainViewModel.class);
-        //enterSampleTestData(); /*Sample data for testing purpose*/
+        enterSampleTestData(); /*Sample data for testing purpose*/
         //Method to populate pain locations in spinner
         populateSpinnerLocations();
 

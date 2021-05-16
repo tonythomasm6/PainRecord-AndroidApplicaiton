@@ -5,6 +5,7 @@ import androidx.room.TypeConverter;
 //Ref : https://stackoverflow.com/questions/44582397/android-room-persistent-library-typeconverter-error-of-error-cannot-figure-ou
 import java.util.Date;
 
+//Class to convert date type
 public class DateConverter {
 
         @TypeConverter

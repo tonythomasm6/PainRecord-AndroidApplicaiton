@@ -59,6 +59,7 @@ public class PainRepository {
         });
     }
 
+    //Find record by id
     @RequiresApi(api= Build.VERSION_CODES.N)
     public CompletableFuture<PainRecord> findByIdFuture(final int painRecordId){
         return CompletableFuture.supplyAsync(new Supplier<PainRecord>() {
@@ -69,6 +70,7 @@ public class PainRepository {
         }, PainDatabase.databaseWriteExecutor);
     }
 
+    //Method to get any record of today
     @RequiresApi(api=Build.VERSION_CODES.N)
     public CompletableFuture<List<PainRecord>>  findTodayRecord(final String email, final Date date){
         return CompletableFuture.supplyAsync(new Supplier<List<PainRecord>>() {

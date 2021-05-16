@@ -13,6 +13,7 @@ import com.example.paindiary.fragments.charts.LinechartFragment;
 import com.example.paindiary.fragments.charts.PiechartFragment;
 import com.example.paindiary.fragments.ReportsFragment;
 
+//Class to display charts as different tabs
 public class ReportsAdapter extends FragmentStatePagerAdapter {
 
     private ReportsFragment myContext;

@@ -35,6 +35,6 @@ public class NotificationHelper extends ContextWrapper {
         return new NotificationCompat.Builder(getApplicationContext(), channelID)
                 .setContentTitle("Notification")
                 .setContentText("Please enter your pain details !!")
-                .setSmallIcon(R.drawable.ic_one);  //Tony
+                .setSmallIcon(R.drawable.notification_icon);
     }
 }

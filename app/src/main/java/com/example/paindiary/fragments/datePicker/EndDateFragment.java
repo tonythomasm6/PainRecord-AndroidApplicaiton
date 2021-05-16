@@ -38,7 +38,7 @@ public class EndDateFragment extends DialogFragment
         c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
         String dateString = formatDateToString(c.getTime());
 
-        TextView t = getActivity().findViewById(R.id.endDateText);
+        TextView t = getActivity().findViewById(R.id.endDate);
         t.setText(dateString);
     }
     public String formatDateToString(Date date){

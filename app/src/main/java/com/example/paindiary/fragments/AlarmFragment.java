@@ -44,7 +44,7 @@ public class AlarmFragment extends Fragment {
 
                 binding.title.setText("Time="+Integer.toString(hour)+":"+Integer.toString(min));
 
-                setAlarm(time);
+                setAlarmForTime(time);
 
             }
         });
@@ -53,28 +53,28 @@ public class AlarmFragment extends Fragment {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    public void setAlarm(TimePicker time){
-        Calendar calendar = Calendar.getInstance();
+    public void setAlarmForTime(TimePicker time){
 
-
-        calendar.set(Calendar.HOUR_OF_DAY, time.getHour()); // For 1 PM or 2 PM
-        calendar.set(Calendar.MINUTE, time.getMinute());
-        calendar.set(Calendar.SECOND, 0);
+       //Fetching time given
+        Calendar c = Calendar.getInstance();
+        c.set(Calendar.HOUR_OF_DAY, time.getHour()); // For 1 PM or 2 PM
+        c.set(Calendar.MINUTE, time.getMinute());
+        c.set(Calendar.SECOND, 0);
 
 
         try {
-
             AlarmManager alarmManager = (AlarmManager) getContext().getSystemService(Context.ALARM_SERVICE);
             Intent intent = new Intent(getActivity(), AlertReceiver.class);
             PendingIntent pendingIntent = PendingIntent.getBroadcast(getActivity(), 1, intent, 0);
-            if (calendar.before(Calendar.getInstance())) {
-                calendar.add(Calendar.DATE, 1);
+            //If time already pass for today, then setting to next day
+            if (c.before(Calendar.getInstance())) {
+                c.add(Calendar.DATE, 1);
             }
-            alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
-            binding.title.setText(calendar.getTime().toString());
+            alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendingIntent);
+            binding.title.setText(c.getTime().toString());
 
         }catch(Exception e){
-            String s = e.toString();
+            e.printStackTrace();
         }
     }
 }

@@ -15,7 +15,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
-
+/*To view data as recycler view*/
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>{
 
     private List<PainRecord> painRecords;
@@ -41,22 +41,23 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public void onBindViewHolder(@NonNull RecyclerViewAdapter.ViewHolder viewHolder, int position) {
             final PainRecord painRecord = painRecords.get(position);
 
-            //To expand the recycler view on click
-            final boolean  isExpanded = position==expandPosition; // Default value set to -1
-        //Showing and hiding details based on click
-            viewHolder.binding.weather.setVisibility(isExpanded? View.VISIBLE:View.GONE);
-            viewHolder.binding.upArrow.setVisibility(isExpanded? View.VISIBLE:View.GONE);
-            viewHolder.binding.downArrow.setVisibility(isExpanded? View.GONE:View.VISIBLE);
-            viewHolder.binding.parent.setActivated(isExpanded);
-            //On click listener
-            viewHolder.binding.parent.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                expandPosition = isExpanded? -1:position;
-                //TransitionManager.beginDelayedTransition();
-                notifyDataSetChanged();
-            }
-        });
+            try {
+                //To expand the recycler view on click
+                final boolean isExpanded = position == expandPosition; // Default value set to -1
+                //Showing and hiding details based on click
+                viewHolder.binding.weather.setVisibility(isExpanded ? View.VISIBLE : View.GONE);
+                viewHolder.binding.upArrow.setVisibility(isExpanded ? View.VISIBLE : View.GONE);
+                viewHolder.binding.downArrow.setVisibility(isExpanded ? View.GONE : View.VISIBLE);
+                viewHolder.binding.parent.setActivated(isExpanded);
+                //On click listener
+                viewHolder.binding.parent.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        expandPosition = isExpanded ? -1 : position;
+                        //TransitionManager.beginDelayedTransition();
+                        notifyDataSetChanged();
+                    }
+                });
 
 
                 viewHolder.binding.painIntenseVal.setText(Integer.toString(painRecord.getPainIntensity()));
@@ -69,7 +70,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 viewHolder.binding.temperatureVal.setText(Double.toString(painRecord.getTemp()));
                 viewHolder.binding.humidityVal.setText(Double.toString(painRecord.getHumidity()));
                 viewHolder.binding.pressureVal.setText(Double.toString(painRecord.getPressure()));
-
+            }
+            catch(Exception e){
+                e.printStackTrace();
+            }
 
     }
 

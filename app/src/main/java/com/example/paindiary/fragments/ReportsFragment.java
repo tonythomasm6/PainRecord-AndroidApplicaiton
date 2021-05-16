@@ -64,17 +64,6 @@ public class ReportsFragment extends Fragment {
             }
         });
 
-
-
-
-
-
-
-
-
-
-
-
         return view;
 
     }

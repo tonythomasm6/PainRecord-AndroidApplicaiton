@@ -9,6 +9,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
+
+
+
+<!--
     <Button
         android:id="@+id/startDate"
         android:layout_width="wrap_content"
@@ -16,11 +21,61 @@
         android:layout_below="@+id/timePicker"
         android:layout_marginLeft="40dp"
         android:layout_marginTop="20dp"
-        android:text="Start date" />
+        android:text="Start date" /> -->
+    <TextView
+        android:id="@+id/startDateDisplay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="11dp"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:textSize="22dp"
+        android:text="Start Date:"/>
 
     <TextView
-        android:id="@+id/startDateText"
+        android:id="@+id/startDate"
         android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_toRightOf="@+id/startDateDisplay"
+        android:layout_below="@+id/timePicker"
+        android:gravity="center"
+        android:textSize="22dp"
+        android:hint="dd/mm/yyyy"
+        android:drawableRight="@drawable/calender"/>
+
+
+    <TextView
+        android:id="@+id/endDateDisplay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="11dp"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/startDateDisplay"
+        android:gravity="center"
+        android:textSize="22dp"
+        android:text="End Date:"/>
+
+    <TextView
+        android:id="@+id/endDate"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_toRightOf="@+id/endDateDisplay"
+        android:layout_below="@+id/startDateDisplay"
+        android:gravity="center"
+        android:textSize="22dp"
+        android:hint="dd/mm/yyyy"
+        android:drawableRight="@drawable/calender"/>
+
+
+    <!--<TextView
+        android:id="@+id/startDateText"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="11dp"
         android:layout_marginTop="20dp"
@@ -28,8 +83,8 @@
         android:gravity="center"
         android:textColor="@color/black"
         android:textSize="22dp"
-        android:textStyle="bold" />
-
+        android:textStyle="bold" /> -->
+<!--
     <Button
         android:id="@+id/endDate"
         android:layout_width="wrap_content"
@@ -52,24 +107,28 @@
         android:textSize="22dp"
         android:textStyle="bold" />
 
+-->
+
+
+
+
 
     <TextView
         android:id="@+id/weatherVariableText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/endDate"
+        android:layout_below="@+id/endDateDisplay"
         android:layout_marginLeft="15dp"
         android:layout_marginTop="23dp"
         android:gravity="center"
         android:text="Select weather:"
-        android:textColor="@color/black"
         android:textSize="22dp" />
 
     <Spinner
         android:id="@+id/weatherVariable"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/endDateText"
+        android:layout_below="@+id/endDate"
         android:layout_marginLeft="23dp"
         android:layout_marginTop="32dp"
         android:layout_marginRight="10dp"
@@ -81,7 +140,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/weatherVariableText"
         android:layout_marginLeft="40dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="30dp"
         android:text="Generate Chart" />
 
     <com.github.mikephil.charting.charts.LineChart
@@ -98,19 +157,17 @@
         android:layout_below="@+id/lineChart"
         android:layout_marginLeft="40dp"
         android:layout_marginTop="20dp"
-        android:text="Generate Chart" />
+        android:text="Calculate Correlation" />
 
     <TextView
         android:id="@+id/correlationText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/correlation"
-        android:layout_below="@+id/lineChart"
+        android:layout_below="@+id/correlation"
         android:layout_marginLeft="15dp"
         android:layout_marginTop="23dp"
         android:gravity="center"
-        android:text="Select weather:"
-        android:textColor="@color/black"
+        android:text=""
         android:textSize="22dp" />
 </RelativeLayout>
 

@@ -134,20 +134,20 @@ public class LinechartFragment extends Fragment {
         xAxis = new ArrayList<>();
         int i = 0;
         int j = 0;
-        int k = 0;
+       // int k = 0;
         for (PainRecord p : allPainRecords) {
 
 
             try {
 
 
-                if (p.getDate().before(stringToDate(binding.endDateText.getText().toString())) &&
-                        p.getDate().after(stringToDate(binding.startDateText.getText().toString()))) {
+                if (p.getDate().before(stringToDate(binding.endDate.getText().toString())) &&
+                        p.getDate().after(stringToDate(binding.startDate.getText().toString()))) {
 
                     yAxis1.add(new Entry(i, p.getPainIntensity()));
-                    // xAxis.add(p.getDate().toString());
-                    // xAxis.add(Integer.toString(i));
-                    xAxis.add(dateToString(p.getDate()));
+
+                    //xAxis.add(dateToString(p.getDate()));
+                    xAxis.add((Integer.toString(i+1)));
                     i++;
 
                     //yaxis 2
@@ -158,8 +158,8 @@ public class LinechartFragment extends Fragment {
                         yAxis2.add(new Entry(j, (float) p.getHumidity()));
                         j++;
                     } else if (weatherType.equalsIgnoreCase("Pressure")) {
-                        yAxis2.add(new Entry(k, (float) p.getPressure()));
-                        k++;
+                        yAxis2.add(new Entry(j, (float) p.getPressure()));
+                        j++;
                     }
                 }
 
@@ -195,14 +195,13 @@ public class LinechartFragment extends Fragment {
         lineChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(xAxis));
 
         //calculating date different
-        long difference = stringToDate(binding.endDateText.getText().toString()).getTime() -
-                stringToDate(binding.startDateText.getText().toString()).getTime();
+        long difference = stringToDate(binding.endDate.getText().toString()).getTime() -
+                stringToDate(binding.endDate.getText().toString()).getTime();
         int days = (int) TimeUnit.DAYS.convert(difference, TimeUnit.MILLISECONDS);
 
-        lineChart.getXAxis().setLabelCount(days, true);
+        lineChart.getXAxis().setLabelCount(i, true);
         lineChart.setData(data);
         lineChart.setVisibility(View.VISIBLE);
-        //fragmentLineGraphBinding.correlation.setVisibility(View.VISIBLE);
 
 
     }
@@ -236,26 +235,29 @@ public class LinechartFragment extends Fragment {
             data[i][0] = yAxis1.get(i).getY();
             data[i][1] = yAxis2.get(i).getY();
         }
+try {
+    // create a realmatrix
+    RealMatrix m = MatrixUtils.createRealMatrix(data);
 
-        // create a realmatrix
-        RealMatrix m = MatrixUtils.createRealMatrix(data);
+    // measure all correlation test: x-x, x-y, y-x, y-x
+    for (int i = 0; i < m.getColumnDimension(); i++)
+        for (int j = 0; j < m.getColumnDimension(); j++) {
+            PearsonsCorrelation pc = new PearsonsCorrelation();
+            double cor = pc.correlation(m.getColumn(i), m.getColumn(j));
+            System.out.println(i + "," + j + "=[" + String.format(".%2f", cor) + "," + "]");
+        }
 
-        // measure all correlation test: x-x, x-y, y-x, y-x
-        for (int i = 0; i < m.getColumnDimension(); i++)
-            for (int j = 0; j < m.getColumnDimension(); j++) {
-                PearsonsCorrelation pc = new PearsonsCorrelation();
-                double cor = pc.correlation(m.getColumn(i), m.getColumn(j));
-                System.out.println(i + "," + j + "=[" + String.format(".%2f", cor) + "," + "]");
-            }
+    // correlation test (another method): x-y
+    PearsonsCorrelation pc = new PearsonsCorrelation(m);
+    RealMatrix corM = pc.getCorrelationMatrix();
 
-        // correlation test (another method): x-y
-        PearsonsCorrelation pc = new PearsonsCorrelation(m);
-        RealMatrix corM = pc.getCorrelationMatrix();
-
-        // significant test of the correlation coefficient (p-value)
-        RealMatrix pM = pc.getCorrelationPValues();
-        binding.correlationText.setText("p value:" + pM.getEntry(0, 1) + "\n" + " correlation: " + corM.getEntry(0, 1));
-
+    // significant test of the correlation coefficient (p-value)
+    RealMatrix pM = pc.getCorrelationPValues();
+    binding.correlationText.setText("p value:" + pM.getEntry(0, 1) + "\n" + " correlation: " + corM.getEntry(0, 1));
+}
+catch(Exception e){
+    e.printStackTrace();
+}
     }
 
 

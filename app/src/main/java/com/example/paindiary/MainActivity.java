@@ -96,14 +96,13 @@ public class MainActivity extends AppCompatActivity {
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Toast toast = Toast.makeText(MainActivity.this, "Login Failed", Toast.LENGTH_LONG);
+                            Toast toast = Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_LONG);
                             toast.show();
                         }
                     });
                 }
             }
         });
-
 
 
         binding.signup.setOnClickListener(new View.OnClickListener(){
@@ -123,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-//Calling work manager
+        //Calling work manager
         callWorkManager();
 
     }

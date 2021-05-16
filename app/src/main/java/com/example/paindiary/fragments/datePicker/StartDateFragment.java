@@ -39,7 +39,7 @@ public class StartDateFragment extends DialogFragment
         c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
         String dateString = formatDateToString(c.getTime());
 
-            TextView t = getActivity().findViewById(R.id.startDateText);
+            TextView t = getActivity().findViewById(R.id.startDate);
             t.setText(dateString);
 
     }
