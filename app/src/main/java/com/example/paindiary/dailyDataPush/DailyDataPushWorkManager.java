@@ -40,16 +40,6 @@ public class DailyDataPushWorkManager extends Worker {
         Gson gson = new Gson();
         PainRecord painRecord = gson.fromJson(message, PainRecord.class);
 
-        DatabaseReference ins = FirebaseDatabase.getInstance().getReference("PainRecords");
-
-        DatabaseReference i = FirebaseDatabase.getInstance().getReference("PainRecords")
-                .child(FirebaseAuth.getInstance().getCurrentUser().getUid());
-
-        DatabaseReference a = FirebaseDatabase.getInstance().getReference("PainRecords")
-                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                .child(String.valueOf(painRecord.id));
-
-
         FirebaseDatabase.getInstance().getReference("PainRecords")
                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                 .child(String.valueOf(painRecord.id))

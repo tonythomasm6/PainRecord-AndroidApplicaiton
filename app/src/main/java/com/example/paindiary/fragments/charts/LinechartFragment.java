@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.DialogFragment;
@@ -96,6 +97,25 @@ public class LinechartFragment extends Fragment {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View v) {
+
+                if(binding.startDate.getText().toString().trim().isEmpty()){
+                    binding.startDate.requestFocus();
+                    binding.startDate.setError("Please select a valid start date");
+                    Toast.makeText(getActivity(), "Please select a valid start date", Toast.LENGTH_LONG).show();
+                    return;
+                }
+                else if(binding.endDate.getText().toString().trim().isEmpty()){
+                    binding.endDate.requestFocus();
+                    binding.endDate.setError("Please select a valid end date");
+                    Toast.makeText(getActivity(), "Please select a valid end date !!", Toast.LENGTH_LONG).show();
+                    return;
+                }else if(stringToDate(binding.endDate.getText().toString()).before(stringToDate(binding.startDate.getText().toString()))){
+                    binding.endDate.setError("End date cannot before start date");
+                    Toast.makeText(getActivity(), "End date cannot be before start date !!", Toast.LENGTH_LONG).show();
+                    binding.endDate.requestFocus();
+                    return;
+                }
+
                 generateChart();
             }
         });
@@ -126,7 +146,7 @@ public class LinechartFragment extends Fragment {
 
         LineChart lineChart = binding.lineChart;
 
-        selectedRecordsOfPeriod();
+        //selectedRecordsOfPeriod();
         //ArrayList<PainRecord> periodPainRecords = new ArrayList<>();
         String weatherType = binding.weatherVariable.getSelectedItem().toString();
         yAxis1 = new ArrayList<>();
@@ -171,38 +191,41 @@ public class LinechartFragment extends Fragment {
 
         }
 
-        //Plotting chart
-        LineDataSet set_1 = new LineDataSet(yAxis1, "Pain Level");
-        LineDataSet set_2 = new LineDataSet(yAxis2, weatherType);
-        set_2.setAxisDependency(YAxis.AxisDependency.RIGHT);
-        LineData data = new LineData(set_1, set_2);
-        set_1.setColor(ColorTemplate.rgb("#FF0000"));
-        set_1.setCircleColor(ColorTemplate.rgb("#FF0000"));
+        try {
+            //Plotting chart
+            LineDataSet set_1 = new LineDataSet(yAxis1, "Pain Level");
+            LineDataSet set_2 = new LineDataSet(yAxis2, weatherType);
+            set_2.setAxisDependency(YAxis.AxisDependency.RIGHT);
+            LineData data = new LineData(set_1, set_2);
+            set_1.setColor(ColorTemplate.rgb("#FF0000"));
+            set_1.setCircleColor(ColorTemplate.rgb("#FF0000"));
 
-        set_2.setCircleColor(ColorTemplate.rgb("#0000FF"));
-        set_2.setColor(ColorTemplate.rgb("#0000FF"));
+            set_2.setCircleColor(ColorTemplate.rgb("#0000FF"));
+            set_2.setColor(ColorTemplate.rgb("#0000FF"));
 
 
-        lineChart.getAxisLeft().setAxisMinimum(0f);
+            lineChart.getAxisLeft().setAxisMinimum(0f);
 
-        lineChart.getAxisLeft().setAxisMaximum(10.0f);
+            lineChart.getAxisLeft().setAxisMaximum(10.0f);
 
-        lineChart.getAxisRight().setLabelCount(5, true);
-        lineChart.getAxisRight().setDrawGridLines(false);
+            lineChart.getAxisRight().setLabelCount(5, true);
+            lineChart.getAxisRight().setDrawGridLines(false);
 
-        lineChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
-        lineChart.getXAxis().setLabelCount(1, true);
-        lineChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(xAxis));
+            lineChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+            lineChart.getXAxis().setLabelCount(1, true);
+            lineChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(xAxis));
 
-        //calculating date different
-        long difference = stringToDate(binding.endDate.getText().toString()).getTime() -
-                stringToDate(binding.endDate.getText().toString()).getTime();
-        int days = (int) TimeUnit.DAYS.convert(difference, TimeUnit.MILLISECONDS);
+            //calculating date different
+            long difference = stringToDate(binding.endDate.getText().toString()).getTime() -
+                    stringToDate(binding.endDate.getText().toString()).getTime();
+            int days = (int) TimeUnit.DAYS.convert(difference, TimeUnit.MILLISECONDS);
 
-        lineChart.getXAxis().setLabelCount(i, true);
-        lineChart.setData(data);
-        lineChart.setVisibility(View.VISIBLE);
-
+            lineChart.getXAxis().setLabelCount(i, true);
+            lineChart.setData(data);
+            lineChart.setVisibility(View.VISIBLE);
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
 
     }
 
@@ -237,18 +260,18 @@ public class LinechartFragment extends Fragment {
         }
 try {
     // create a realmatrix
-    RealMatrix m = MatrixUtils.createRealMatrix(data);
+    RealMatrix mat = MatrixUtils.createRealMatrix(data);
 
     // measure all correlation test: x-x, x-y, y-x, y-x
-    for (int i = 0; i < m.getColumnDimension(); i++)
-        for (int j = 0; j < m.getColumnDimension(); j++) {
+    for (int i = 0; i < mat.getColumnDimension(); i++)
+        for (int j = 0; j < mat.getColumnDimension(); j++) {
             PearsonsCorrelation pc = new PearsonsCorrelation();
-            double cor = pc.correlation(m.getColumn(i), m.getColumn(j));
+            double cor = pc.correlation(mat.getColumn(i), mat.getColumn(j));
             System.out.println(i + "," + j + "=[" + String.format(".%2f", cor) + "," + "]");
         }
 
     // correlation test (another method): x-y
-    PearsonsCorrelation pc = new PearsonsCorrelation(m);
+    PearsonsCorrelation pc = new PearsonsCorrelation(mat);
     RealMatrix corM = pc.getCorrelationMatrix();
 
     // significant test of the correlation coefficient (p-value)

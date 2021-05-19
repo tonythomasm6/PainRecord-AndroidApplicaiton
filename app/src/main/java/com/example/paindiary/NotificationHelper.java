@@ -13,7 +13,7 @@ import androidx.core.app.NotificationCompat;
 public class NotificationHelper extends ContextWrapper {
     public static final String channelID = "Channel ID";
     public static final String channelName = "Channel Name";
-    private NotificationManager mManager;
+    private NotificationManager man;
     public NotificationHelper(Context base) {
         super(base);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -26,15 +26,15 @@ public class NotificationHelper extends ContextWrapper {
         getManager().createNotificationChannel(channel);
     }
     public NotificationManager getManager() {
-        if (mManager == null) {
-            mManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        if (man == null) {
+            man = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         }
-        return mManager;
+        return man;
     }
     public NotificationCompat.Builder getChannelNotification() {
         return new NotificationCompat.Builder(getApplicationContext(), channelID)
                 .setContentTitle("Notification")
-                .setContentText("Please enter your pain details !!")
+                .setContentText("Please enter your pain record !!")
                 .setSmallIcon(R.drawable.notification_icon);
     }
 }

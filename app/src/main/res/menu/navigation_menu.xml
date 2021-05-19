@@ -22,4 +22,8 @@
     <item
         android:id="@+id/nav_alarm_fragment"
         android:title="Alarm" />
+
+    <item
+        android:id="@+id/nav_fragment_logout"
+        android:title="Logout " />
 </menu>

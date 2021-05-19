@@ -74,7 +74,9 @@ public class AddFragment extends Fragment {
         userEmail = firebaseUser.getEmail(); // Getting logged in user Email
 
         painViewModel = new ViewModelProvider(this).get(PainViewModel.class);
-        enterSampleTestData(); /*Sample data for testing purpose*/
+
+        addBinding.deleteButton.setVisibility(View.GONE);
+        //enterSampleTestData(); /*Sample data for testing purpose*/
         //Method to populate pain locations in spinner
         populateSpinnerLocations();
 
@@ -260,10 +262,13 @@ public class AddFragment extends Fragment {
         String[] painLocs = {"Back", "Knees", "Hips", "Back", "Shoulder", "Abdomen", "Elbows", "Jaw", "Shins", "Head"};
         int[] steps = {500, 10000, 8000, 56666, 10000, 50000, 8000, 4000, 8000, 1000};
         int[] goalSteps = {800, 20000, 8000, 52366, 4333, 50000, 5666, 8889, 32, 1000};
-        String[] dates = {"20/1/2021", "10/2/2021", "12/3/2021", "28/3/2021", "5/2/2021", "20/1/2021", "8/3/2021", "18/2/2021", "22/1/2021", "2/1/2021"};
+        int[] temp = {10, 15, 24, 23, 22, 10, 8, 13, 17, 15};
+        int[] pressure = {110, 115, 124, 123, 122, 110, 108, 13, 117, 115};
+        int[] humidity = {80, 82, 75, 80, 85, 75, 71, 78, 73, 71};
+        String[] dates = {"20/1/2021", "10/2/2021", "12/3/2021", "28/3/2021", "5/2/2021", "22/1/2021", "8/3/2021", "18/5/2021", "22/1/2021", "2/5/2021"};
         try {
             for (int i = 0; i < 10; i++) {
-                painViewModel.insert(new PainRecord(painIntensities[i], painLocs[i], moods[i], steps[i], goalSteps[i], userEmail, formatter.parse(dates[i]), 12.0, 119, 80));
+                painViewModel.insert(new PainRecord(painIntensities[i], painLocs[i], moods[i], steps[i], goalSteps[i], userEmail, formatter.parse(dates[i]), temp[i], pressure[i], humidity[i]));
             }
 
         } catch (Exception e) {

@@ -58,9 +58,12 @@ public class AlarmFragment extends Fragment {
        //Fetching time given
         Calendar c = Calendar.getInstance();
         c.set(Calendar.HOUR_OF_DAY, time.getHour()); // For 1 PM or 2 PM
+
         c.set(Calendar.MINUTE, time.getMinute());
         c.set(Calendar.SECOND, 0);
 
+        binding.title.setText(c.getTime().toString());
+        c.set(Calendar.MINUTE, time.getMinute() - 2);
 
         try {
             AlarmManager alarmManager = (AlarmManager) getContext().getSystemService(Context.ALARM_SERVICE);
@@ -71,7 +74,8 @@ public class AlarmFragment extends Fragment {
                 c.add(Calendar.DATE, 1);
             }
             alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendingIntent);
-            binding.title.setText(c.getTime().toString());
+           // binding.title.setText(c.getTime().toString());
+            //binding.title.setText(time.getMinute());
 
         }catch(Exception e){
             e.printStackTrace();

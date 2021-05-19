@@ -17,7 +17,7 @@ import java.util.List;
 @Dao
 public interface PainDAO {
 
-    @Query("SELECT * FROM painrecord ORDER BY id asc")
+    @Query("SELECT * FROM painrecord ORDER BY date desc")
     LiveData<List<PainRecord>>getAll();
 
     @Query("SELECT * FROM painrecord WHERE id=:painRecordId LIMIT 1")

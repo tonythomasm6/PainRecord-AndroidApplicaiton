@@ -27,4 +27,9 @@
         android:id="@+id/nav_alarm_fragment"
         android:name="com.example.paindiary.fragments.AlarmFragment"
         android:label="AlarmFragment" />
+
+    <fragment
+        android:id="@+id/nav_fragment_logout"
+        android:name="com.example.paindiary.fragments.LogoutFragment"
+        android:label="AlarmFragment" />
 </navigation>
